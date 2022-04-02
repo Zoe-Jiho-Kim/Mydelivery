@@ -25,12 +25,6 @@ public class RestaurantController {
         return restaurantService.registerRestaurant(restaurantDto);
     }
 
-//    @PostMapping("/restaurant/register")
-//    public Restaurant registerRestaurant(@RequestBody RestaurantDto restaurantDto) {
-//        Restaurant restaurant = new Restaurant(restaurantDto);
-//        return restaurantRepository.save(restaurant);
-//    }
-
     // 레스토랑 목록 조회
     @GetMapping("/restaurants")
     public List<Restaurant> getRestaurant(){return restaurantRepository.findAll();}

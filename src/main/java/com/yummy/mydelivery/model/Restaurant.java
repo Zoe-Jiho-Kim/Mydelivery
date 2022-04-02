@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Entity
@@ -23,6 +25,12 @@ public class Restaurant {
 
     @Column(nullable = false)
     private Long deliveryFee;
+
+//    @Column(name = "restaurant_id", nullable = false, unique = true)
+//    private Long restaurantId;
+//
+//    @OneToMany(mappedBy = "restaurant")
+//    private Set<Food> foodSet = new HashSet<>();
 
     public Restaurant(String name, Long minOrderPrice, Long deliveryFee) {
         this.name = name;

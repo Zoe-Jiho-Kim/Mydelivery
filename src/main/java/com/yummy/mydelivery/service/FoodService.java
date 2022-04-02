@@ -6,6 +6,7 @@ import com.yummy.mydelivery.repository.FoodRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,12 +15,15 @@ public class FoodService {
 
     private final FoodRepository foodRepository;
 
+
+
     public Food registerFood(FoodDto foodDto) {
+        Long restaurantId = foodDto.getRestarantId();
         String name = foodDto.getName();
         Long price = foodDto.getPrice();
 
         //메뉴 중복 확인
-        Optional<Food> found = foodRepository.findBymenu(name);
+        Optional<Food> found = foodRepository.findByName(name);
 
         if (found.isPresent()){
             throw new IllegalArgumentException("중복된 메뉴가 존재합니다.");
@@ -30,8 +34,12 @@ public class FoodService {
         } else if (price%100!=0){
             throw new IllegalArgumentException("100원 단위로 입력해주세요.");
         }
-        Food food = new Food(name, price);
+        Food food = new Food(foodDto, restaurantId);
+        foodRepository.save(food);
+        return food;
+    }
 
-        return null;
+    public List<Food> getMenu(Long restaurantId) {
+        return foodRepository.findAllByRestaurantId(restaurantId);
     }
 }
