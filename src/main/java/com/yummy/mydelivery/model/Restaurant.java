@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Entity
@@ -14,7 +13,8 @@ import java.util.Set;
 public class Restaurant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "restaurant_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -26,11 +26,9 @@ public class Restaurant {
     @Column(nullable = false)
     private Long deliveryFee;
 
-//    @Column(name = "restaurant_id", nullable = false, unique = true)
-//    private Long restaurantId;
-//
-//    @OneToMany(mappedBy = "restaurant")
-//    private Set<Food> foodSet = new HashSet<>();
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "restaurant_id")
+//    private List<Food> menu;
 
     public Restaurant(String name, Long minOrderPrice, Long deliveryFee) {
         this.name = name;

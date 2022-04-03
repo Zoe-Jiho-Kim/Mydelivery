@@ -1,7 +1,6 @@
 package com.yummy.mydelivery.model;
 
 import com.yummy.mydelivery.dto.FoodDto;
-import com.yummy.mydelivery.dto.RestaurantDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,22 +12,20 @@ import javax.persistence.*;
 public class Food {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "menu_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private Long restaurantId;
-
-    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)
     private Long price;
 
-//    @ManyToOne
-//    @JoinColumn(name = "restaurantId")
-//    private Restaurant restaurant;
-//
+    @Column(name = "restaurant_id")
+    private Long restaurantId;
+
+
     public Food(Long restaurantId, String name, Long price) {
         this.restaurantId =restaurantId;
         this.name = name;
@@ -40,6 +37,5 @@ public class Food {
         this.name = foodDto.getName();
         this.price = foodDto.getPrice();
     }
-
 
 }

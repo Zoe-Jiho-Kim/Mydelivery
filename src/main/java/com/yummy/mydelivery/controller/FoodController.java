@@ -5,7 +5,6 @@ import com.yummy.mydelivery.model.Food;
 import com.yummy.mydelivery.repository.FoodRepository;
 import com.yummy.mydelivery.service.FoodService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +18,8 @@ public class FoodController {
 
     //메뉴 등록
     @PostMapping("/restaurant/{restaurantId}/food/register")
-    public Food registerFood(@RequestBody FoodDto foodDto) {
-        return foodService.registerFood(foodDto);
+    public void registerFood(@PathVariable Long restaurantId, @RequestBody List<FoodDto> foodDto) {
+       foodService.registerFood(restaurantId, foodDto);
     }
 
     // 레스토랑 목록 조회
