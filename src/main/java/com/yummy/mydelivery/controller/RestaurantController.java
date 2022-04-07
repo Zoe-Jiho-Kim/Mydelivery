@@ -1,6 +1,6 @@
 package com.yummy.mydelivery.controller;
 
-import com.yummy.mydelivery.dto.RestaurantDto;
+import com.yummy.mydelivery.dto.Restaurant.RestaurantDto;
 import com.yummy.mydelivery.model.Restaurant;
 import com.yummy.mydelivery.repository.RestaurantRepository;
 import com.yummy.mydelivery.service.RestaurantService;

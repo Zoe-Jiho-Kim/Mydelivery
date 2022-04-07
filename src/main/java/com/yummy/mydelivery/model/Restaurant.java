@@ -1,11 +1,10 @@
 package com.yummy.mydelivery.model;
 
-import com.yummy.mydelivery.dto.RestaurantDto;
+import com.yummy.mydelivery.dto.Restaurant.RestaurantDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Entity
@@ -13,7 +12,7 @@ import java.util.List;
 public class Restaurant {
 
     @Id
-    @Column(name = "restaurant_id")
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -21,20 +20,10 @@ public class Restaurant {
     private String name;
 
     @Column(nullable = false)
-    private Long minOrderPrice;
+    private int minOrderPrice;
 
     @Column(nullable = false)
-    private Long deliveryFee;
-
-//    @OneToMany(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "restaurant_id")
-//    private List<Food> menu;
-
-    public Restaurant(String name, Long minOrderPrice, Long deliveryFee) {
-        this.name = name;
-        this.minOrderPrice = minOrderPrice;
-        this.deliveryFee = deliveryFee;
-    }
+    private int deliveryFee;
 
     public Restaurant(RestaurantDto restaurantDto) {
         this.name = restaurantDto.getName();

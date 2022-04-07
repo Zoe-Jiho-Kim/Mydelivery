@@ -1,6 +1,6 @@
 package com.yummy.mydelivery.service;
 
-import com.yummy.mydelivery.dto.RestaurantDto;
+import com.yummy.mydelivery.dto.Restaurant.RestaurantDto;
 import com.yummy.mydelivery.model.Restaurant;
 import com.yummy.mydelivery.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +16,8 @@ public class RestaurantService {
 
     public Restaurant registerRestaurant(RestaurantDto restaurantDto) {
         String name = restaurantDto.getName();
-        Long minOrderPrice = restaurantDto.getMinOrderPrice();
-        Long deliveryFee = restaurantDto.getDeliveryFee();
+        int minOrderPrice = restaurantDto.getMinOrderPrice();
+        int deliveryFee = restaurantDto.getDeliveryFee();
 
         //레스토랑 중복 확인
         Optional<Restaurant> found = restaurantRepository.findByname(name);
@@ -41,7 +41,7 @@ public class RestaurantService {
             throw new IllegalArgumentException("0원에서 10,000원 사이의 값을 입력해주세요.");
 //            return "0원에서 10,000원 사이의 값을 입력해주세요.";
         }
-        Restaurant restaurant = new Restaurant(name, minOrderPrice, deliveryFee);
+        Restaurant restaurant = new Restaurant(restaurantDto);
         restaurantRepository.save(restaurant);
         return restaurant;
     }
