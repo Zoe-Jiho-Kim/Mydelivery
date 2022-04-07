@@ -87,10 +87,12 @@ public class OrderService {
                 restaurant.getName(),
                 orderList, totalPrice,
                 deliveryFee
-//                restaurant.getDeliveryFee()
         );
         orderRepository.save(orderDetail);
 
+        for (OrderFoods foods : orderList){
+            foods.setOrderDetail(orderDetail);
+        }
         // 고객에게 주문정보를 보여줌
         return new OrderDetailDto(
                 orderDetail,
@@ -99,7 +101,7 @@ public class OrderService {
         );
     }
 
-//    @Transactional
+    @Transactional
     public List<OrderDetailDto> showOrders() {
 
         List<OrderDetailDto> orderFoodsResponseDtoList =new ArrayList<>();
@@ -113,9 +115,8 @@ public class OrderService {
             int deliveryFee = orderDetail.getDeliveryFee();
             // 주문정보중에 음식정보를 빼냄
             List<OrderFoods> orderFoodsList  = orderFoodsRepository.findOrderFoodsByOrderDetail(orderDetail);
-            System.out.println("음식정보:"+orderFoodsList);
             // 빼낸 음식정보리스트에서 음식정보를 하나씩 빼냄
-            for (OrderFoods orderFoods:orderFoodsList){
+            for (OrderFoods orderFoods : orderFoodsList){
                 // 빼낸 음식정보를 보여줄 정보로 바꿈
                 OrderFoodsResponseDto orderFoodsResponseDto = new OrderFoodsResponseDto(
                         orderFoods.getFood().getName(),
@@ -123,7 +124,6 @@ public class OrderService {
                         orderFoods.getFood().getPrice()*orderFoods.getQuantity());
                 //보여줄 정보로 바꾼 음식 하나씩 보여줄 리스트에 넣어줌
                 ordersResponse.add(orderFoodsResponseDto);
-                System.out.println(orderFoodsResponseDto);
             }
             //주문 정보를 하나씩 만들어줌
             OrderDetailDto ordersResponseDto =  new OrderDetailDto(orderDetail,ordersResponse,deliveryFee);
